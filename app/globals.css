@@ -2,13 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Satoshi Medium';
+  src: url('../public/fonts/Satoshi-Medium.otf');
+}
+
+@font-face {
+  font-family: 'Satoshi Medium Italic';
+  src: url('../public/fonts/Satoshi-MediumItalic.otf');
+}
+
+@font-face {
+  font-family: 'Satoshi Bold';
+  src: url('../public/fonts/Satoshi-Bold.otf');
+}
+
+@font-face {
+  font-family: 'Satoshi Bold Italic';
+  src: url('../public/fonts/Satoshi-BoldItalic.otf');
+}
+
+@font-face {
+  font-family: 'Cool';
+  src: url('../public/fonts/cool.otf');
+}
+
+@font-face {
+  font-family: 'Cool Condensed';
+  src: url('../public/fonts/cool-condensed.otf');
+}
+
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -24,4 +56,4 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
