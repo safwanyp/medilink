@@ -28,6 +28,9 @@ module.exports = {
         'satoshi-bold-it': ['Satoshi Bold Italic', 'sans-serif'],
         'cool': ['cool', 'sans-serif'],
         'cool-con': ['cool condensed', 'sans-serif'],
+      },
+      backgroundImage: {
+        'tora': "linear-gradient(to right, rgba(252, 249, 246, 0.96), rgba(252, 249, 246, 1)), url('/assets/tora-pattern.jpg')",
       }
     },
   },
