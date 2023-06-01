@@ -10,7 +10,7 @@ export default function PatientsProcess() {
                 height={500}
                 className="border-2 border-shadow"
             />
-            <div className="flex flex-col w-full h-full gap-3 text-dark-grey font-satoshi-med">
+            <div className="flex flex-col w-full h-full gap-6 text-dark-grey font-satoshi-med">
                 <p>As a <span className="text-orange font-satoshi-bold">patient</span>, you will get access to a dashboard that comes with features like:</p>
                 <ul className="list-disc list-inside">
                     <li>Viewing your medical records</li>
