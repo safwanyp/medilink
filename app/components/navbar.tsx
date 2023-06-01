@@ -9,7 +9,7 @@ import { BsPerson } from "react-icons/bs";
 import { TbLogout } from "react-icons/tb";
 import Link from "next/link";
 
-export default function Navbar({}) {
+export default function Navbar({mode = 'home'}) {
     const [acc, setAcc] = useState<Models.Account<Models.Preferences>>();
     
     useEffect(() => {
@@ -127,7 +127,17 @@ export default function Navbar({}) {
 
     return (
         <div className="w-full py-5 flex flex-row justify-between items-center border-b-[1px] border-orange-light border-opacity-40">
-            {patientDashNavbar}
+            {
+                mode === 'home' 
+                    ? acc ? homeLoggedInNavbar : homeDefaultNavbar
+                : mode === 'doctorDash' 
+                    ? doctorDashNavbar
+                : mode === 'patientDetails' 
+                ? patientDetailsNavbar
+                    : mode === 'patientDash' 
+                ? patientDashNavbar
+                    : null
+            }
         </div>
     )
 
