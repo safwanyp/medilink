@@ -1,4 +1,4 @@
-import { Client, Account, Databases, ID, AppwriteException } from "appwrite";
+import { Client, Account, Databases, ID, AppwriteException, Functions } from "appwrite";
 
 const client = new Client();
 
@@ -8,10 +8,11 @@ client
 
 export const account = new Account(client);
 export const database = new Databases(client);
+export const functions = new Functions(client);
 
-export async function createAccount(email: string, password: string) {
+export async function createAccount(email: string, password: string, name: string) {
     try {
-        const promise = await account.create(ID.unique(), password, email);
+        const promise = await account.create(ID.unique(), email, password, name);
         return promise;
     } catch (error) {
         if (error instanceof AppwriteException) {
@@ -21,6 +22,46 @@ export async function createAccount(email: string, password: string) {
         }
     }
 }
+
+export async function createSession(email: string, password: string) {
+    try {
+        const promise = await account.createEmailSession(email, password);
+        return promise;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+        } else {
+            console.log(error);
+        }
+    }
+}
+
+export async function sendVerificationEmail(url: string) {
+    try {
+        const promise = await account.createVerification(url);
+        return promise;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+        } else {
+            console.log(error);
+        }
+    }
+}
+
+export async function confirmEmail(userId: string, secret: string) {
+    try {
+        const promise = await account.updateVerification(userId, secret);
+        return promise;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+        } else {
+            console.log(error);
+        }
+    }
+}
+
 
 export async function getAccount() {
     try {
@@ -35,10 +76,20 @@ export async function getAccount() {
     }
 }
 
-export async function login() {
+export async function executeTeamsFunction(id: string, mode: string, email: string) {
     try {
-        const promise = account.createEmailSession('test@test.com', 'aabbccdd');
-        return promise;
+        if (id === '') {
+            return;
+        } else {
+            const promise = await functions.createExecution(
+                id,
+                `{
+                    "mode": "${mode}", 
+                    "email": "${email}"
+                }`
+            );
+            return promise;
+        }
     } catch (error) {
         if (error instanceof AppwriteException) {
             console.log(error.message);
