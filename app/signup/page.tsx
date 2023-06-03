@@ -21,12 +21,6 @@ export default function SignupPage({mode = 'patient'}) {
     const [showVerification, setShowVerification] = useState<boolean>(false);
 
     async function handleSubmit() {
-        // first check if passwords match
-        // then call createAccount and sendVerificationEmail
-        // after email is sent, show a message to the user to check their email
-        
-        /* ========= TODO: execution function to create correct team membership ========= */
-
         if (form.password !== form.confirmPassword) {
             alert('Passwords do not match!');
             return;
@@ -55,13 +49,18 @@ export default function SignupPage({mode = 'patient'}) {
                             <span className="text-lg font-satoshi-med text-dark-grey">I am a </span>
                             <span 
                                 className={accMode === 'patient' ? 'transition-all duration-300 cursor-pointer font-satoshi-bold text-orange underline underline-offset-4 text-lg' : 'transition-all duration-300 cursor-pointer font-satoshi-med text-orange-light text-lg'}
-                                onClick={() => setAccMode('patient')}
+                                onClick={() => {
+                                    setAccMode('patient');
+                                    setForm({...form, mode: 'patient'});
+                                }}
                             >
                                 Patient
                             </span>
                             <span 
                                 className={accMode === 'doctor' ? 'transition-all duration-300 cursor-pointer font-satoshi-bold text-orange underline underline-offset-4 text-lg' : 'transition-all duration-300 cursor-pointer font-satoshi-med text-orange-light text-lg'}
-                                onClick={() => setAccMode('doctor')}
+                                onClick={() => {
+                                    setAccMode('doctor');
+                                    setForm({...form, mode: 'doctor'});}}
                             >
                                 Doctor
                             </span>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import logo from "../../public/assets/Logo.svg";
 import { useEffect, useState } from "react";
 import { Models } from "appwrite";
-import { getAccount, login } from "../appwrite";
+import { getAccount } from "../appwrite";
 import { BsPerson } from "react-icons/bs";
 import { TbLogout } from "react-icons/tb";
 import Link from "next/link";
