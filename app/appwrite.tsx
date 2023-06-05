@@ -31,8 +31,10 @@ export async function createSession(email: string, password: string) {
     } catch (error) {
         if (error instanceof AppwriteException) {
             console.log(error.message);
+            return error;
         } else {
             console.log(error);
+            return error;
         }
     }
 }
