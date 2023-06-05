@@ -1,4 +1,4 @@
-import { PatientDoc, Patient } from "@/models/patient_doc";
+import { Patient } from "@/models/patient_doc";
 import { Client, Account, Databases, ID, AppwriteException, Functions } from "appwrite";
 
 const client = new Client();
