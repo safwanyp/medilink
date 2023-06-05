@@ -81,7 +81,7 @@ export async function getAccount() {
 
 export async function createPasswordRecovery(email: string) {
     try {
-        const promise = account.createRecovery(email, 'https://localhost:3000/recover');
+        const promise = account.createRecovery(email, `${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}/recover`);
         return promise;
     } catch (error) {
         if (error instanceof AppwriteException) {

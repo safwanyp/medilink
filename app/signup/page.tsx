@@ -17,7 +17,7 @@ function SignupPage() {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        setAccMode(urlParams.get('mode') as string);
+        setAccMode(urlParams.get('mode') as string || 'patient');
     }, []);
 
     const [form, setForm] = useState({
@@ -37,11 +37,19 @@ function SignupPage() {
             alert('Passwords do not match!');
             setLoading(false);
             return;
+        } else if (form.mode === '' || form.name === '' || form.email === '' || form.password === '' || form.confirmPassword === '') {
+            alert('Please fill out all fields!');
+            setLoading(false);
+            return;
+        } else if (form.password.length < 8) {
+            alert('Password must be at least 8 characters long!');
+            setLoading(false);
+            return;
         } else {
             await createAccount(form.email, form.password.toString(), form.name);   // create user account
             await createSession(form.email, form.password.toString());              // create user session
             setShowVerification(true);                                              // show verification message
-            await sendVerificationEmail('http://localhost:3000/verification');      // send verification email
+            await sendVerificationEmail(`${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}/verification`);      // send verification email
             await executeTeamsFunction(                                             // execute function to create correct team membership
                 process.env.NEXT_PUBLIC_TEAM_FUNCTION_ID as string, 
                 form.mode, 
