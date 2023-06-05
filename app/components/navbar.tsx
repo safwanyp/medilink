@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function Navbar({mode = 'home'}) {
     const [acc, setAcc] = useState<Models.Account<Models.Preferences>>();
-    
+
     useEffect(() => {
         getAccount().then((res) => {
             setAcc(res);
@@ -122,8 +122,6 @@ export default function Navbar({mode = 'home'}) {
             </Link>
         </>
     );
-
-
 
     return (
         <div className="w-full py-5 flex flex-row justify-between items-center border-b-[1px] border-orange-light border-opacity-40">

@@ -1,3 +1,4 @@
+import { PatientDoc, Patient } from "@/models/patient_doc";
 import { Client, Account, Databases, ID, AppwriteException, Functions } from "appwrite";
 
 const client = new Client();
@@ -89,6 +90,71 @@ export async function executeTeamsFunction(id: string, mode: string, email: stri
                 }`
             );
             return promise;
+        }
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+        } else {
+            console.log(error);
+        }
+    }
+}
+
+export async function createUserDocument(mode: string) {
+    try {
+        const userAcc = await getAccount();
+        console.log('userAcc: ', userAcc);
+
+        const accessJSON = {
+            doctor_id: 'N/A',
+            doctor_name: 'N/A',
+            patient_id: 'N/A',
+            patient_name: 'N/A',
+            access_type: 'N/A',
+            access_date_time: 'N/A'
+        }
+
+        if (userAcc) {
+            const data = new Patient(
+                userAcc.name,
+                userAcc.email,
+                'N/A',
+                'N/A',
+                ['N/A'],
+                ['N/A'],
+                ['N/A'],
+                ['N/A'],
+                ['N/A'],
+                'N/A',
+                'N/A',
+                ['N/A'],
+                'N/A',
+                'N/A',
+                'N/A',
+                'N/A',
+                userAcc.$id,
+                [JSON.stringify(accessJSON)],
+                [JSON.stringify(accessJSON)],
+            );
+
+            console.log('data: ', JSON.stringify(data));
+
+            const promise = await functions.createExecution(
+                process.env.NEXT_PUBLIC_CREATE_USER_DOC_FUNCTION_ID as string,
+                `{
+                    "mode": "${mode}",
+                    "user_id": "${userAcc.$id}",
+                    "data": ${JSON.stringify(data)}
+                }`
+            );
+
+            if (promise) {
+                return promise;
+            } else {
+                return;
+            }
+        } else {
+            console.log('userAcc is null');
         }
     } catch (error) {
         if (error instanceof AppwriteException) {

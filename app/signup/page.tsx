@@ -4,8 +4,9 @@ import { useState } from "react";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { createAccount, createSession, executeTeamsFunction, sendVerificationEmail } from "../appwrite";
+import { createAccount, createSession, createUserDocument, executeTeamsFunction, sendVerificationEmail } from "../appwrite";
 import CheckEmail from "./checkEmail";
+import { Loading } from "@nextui-org/react";
 
 
 export default function SignupPage({mode = 'patient'}) {
@@ -19,21 +20,26 @@ export default function SignupPage({mode = 'patient'}) {
     });
     const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
     const [showVerification, setShowVerification] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     async function handleSubmit() {
+        setLoading(true);
         if (form.password !== form.confirmPassword) {
             alert('Passwords do not match!');
+            setLoading(false);
             return;
         } else {
             await createAccount(form.email, form.password.toString(), form.name);   // create user account
             await createSession(form.email, form.password.toString());              // create user session
-            await sendVerificationEmail('http://localhost:3000/verification');      // send verification email
             setShowVerification(true);                                              // show verification message
+            await sendVerificationEmail('http://localhost:3000/verification');      // send verification email
             await executeTeamsFunction(                                             // execute function to create correct team membership
                 process.env.NEXT_PUBLIC_TEAM_FUNCTION_ID as string, 
                 form.mode, 
                 form.email
             );
+            await createUserDocument(form.mode);
+            setLoading(false);
         }
     }
 
@@ -82,12 +88,12 @@ export default function SignupPage({mode = 'patient'}) {
                             value={form.email}
                             onChange={(e) => setForm({...form, email: e.target.value})}
                         />
-                        <div className="flex items-center gap-3 w-full p-5 rounded-md bg-orange bg-opacity-30 text-lg font-satoshi-med text-dark-grey border-b border-shadow outline-none focus-within:border"> 
+                        <div className="flex items-center gap-3 w-full rounded-md bg-orange bg-opacity-30 text-lg font-satoshi-med text-dark-grey border-b border-shadow outline-none focus-within:border"> 
                             <input 
                                 required
                                 type={passwordHidden ? "password" : "text"}
                                 placeholder="Password"
-                                className="bg-transparent w-full h-full  outline-none text-lg font-satoshi-med text-dark-grey placeholder:text-dark-grey placeholder:opacity-30 placeholder:font-satoshi-med"
+                                className="bg-transparent w-full h-full p-5 outline-none text-lg font-satoshi-med text-dark-grey placeholder:text-dark-grey placeholder:opacity-30 placeholder:font-satoshi-med"
                                 value={form.password}
                                 onChange={(e) => setForm({...form, password: e.target.value})}
                             />
@@ -103,12 +109,12 @@ export default function SignupPage({mode = 'patient'}) {
                                 />
                             }
                         </div>
-                        <div className="flex items-center gap-3 w-full p-5 rounded-md bg-orange bg-opacity-30 text-lg font-satoshi-med text-dark-grey border-b border-shadow outline-none focus-within:border"> 
+                        <div className="flex items-center gap-3 w-full rounded-md bg-orange bg-opacity-30 text-lg font-satoshi-med text-dark-grey border-b border-shadow outline-none focus-within:border"> 
                             <input 
                                 required
                                 type={passwordHidden ? "password" : "text"}
                                 placeholder="Confirm Password"
-                                className="bg-transparent w-full h-full  outline-none text-lg font-satoshi-med text-dark-grey placeholder:text-dark-grey placeholder:opacity-30 placeholder:font-satoshi-med"
+                                className="bg-transparent w-full h-full p-5 outline-none text-lg font-satoshi-med text-dark-grey placeholder:text-dark-grey placeholder:opacity-30 placeholder:font-satoshi-med"
                                 value={form.confirmPassword}
                                 onChange={(e) => setForm({...form, confirmPassword: e.target.value})}
                             />
@@ -125,7 +131,12 @@ export default function SignupPage({mode = 'patient'}) {
                             }
                         </div>
                         <button className="w-full p-3 bg-orange rounded-md grid place-items-center shadow-[0px_4px_0px_0px_rgba(238,151,106,1)] hover:shadow-none transition-all duration-300" onClick={handleSubmit}>
-                            <span className="text-lg font-satoshi-med text-dark-grey">Sign Up</span>
+                            {
+                                !loading ? <span className="text-lg font-satoshi-med text-dark-grey">Sign Up</span>
+                                : <span className="text-lg font-satoshi-med text-dark-grey">
+                                    <Loading color='white' type='points' />
+                                </span>
+                            }
                         </button>
                     </div>
                 </div>
