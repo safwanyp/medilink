@@ -9,7 +9,7 @@ import CheckEmail from "./checkEmail";
 import { Loading } from "@nextui-org/react";
 
 
-export default function SignupPage({mode = 'patient' as string}) {
+export default function SignupPage({mode}: {mode: string}) {
     const [accMode, setAccMode] = useState<string>(mode);
     const [form, setForm] = useState({
         mode: accMode,
