@@ -79,6 +79,34 @@ export async function getAccount() {
     }
 }
 
+export async function createPasswordRecovery(email: string) {
+    try {
+        const promise = account.createRecovery(email, 'https://localhost:3000/recover');
+        return promise;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+        } else {
+            console.log(error);
+        }
+    }
+}
+
+export async function resetPassword(userId: string, secret: string, password: string, confirmPassword: string) {
+    try {
+        const promise = account.updateRecovery(userId, secret, password, confirmPassword);
+        return promise;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+            return error;
+        } else {
+            console.log(error);
+            return error;
+        }
+    }
+}
+
 export async function executeTeamsFunction(id: string, mode: string, email: string) {
     try {
         if (id === '') {

@@ -7,6 +7,8 @@ import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { createSession } from "../appwrite";
 import { Loading } from "@nextui-org/react";
 import { AppwriteException } from "appwrite";
+import RecoverPassword from "../recover/page";
+import ResetPasswordModal from "./reset";
 
 
 export default function LoginPage() {
@@ -15,7 +17,7 @@ export default function LoginPage() {
         password: ''
     });
     const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
-    const [showVerification, setShowVerification] = useState<boolean>(false);
+    const [showRecover, setShowRecover] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
@@ -34,6 +36,7 @@ export default function LoginPage() {
 
     return (
         <>
+            { showRecover && <ResetPasswordModal setShow={setShowRecover} /> }
             <div className="w-screen h-screen flex flex-col justify-between px-32 bg-cream bg-opacity-20 text-2xl font-['Satoshi_Medium'] overflow-auto">
                 <Navbar mode="home"/>
                 <div className="w-full h-full flex justify-center items-center">
@@ -81,7 +84,7 @@ export default function LoginPage() {
                                     </span>
                                 }
                             </button>
-                            <span className="text-base text-orange font-satoshi-med cursor-pointer">Forgot Password?</span>
+                            <span className="text-base text-orange font-satoshi-med cursor-pointer" onClick={() => setShowRecover(true)}>Forgot Password?</span>
                         </div>
                     </div>
                 </div>
