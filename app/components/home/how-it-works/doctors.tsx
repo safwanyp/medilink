@@ -1,5 +1,6 @@
 import Image from "next/image";
 import image from "../../../../public/assets/doc-preview.png";
+import Link from "next/link";
 
 export default function DoctorsProcess() {
     return (
@@ -10,9 +11,11 @@ export default function DoctorsProcess() {
                 <p>Patient data is extremely sensitive, which is why you will receive one-time access to the patient’s details, upon approval.</p>
                 <p>Help us make healthcare better, and start using our platform for free right now!</p>
                 <button className="rounded-full outline-none bg-orange px-7 py-2 shadow-[1px_4px_0px_0px_rgba(238,151,106,1)] transition-all duration-300 hover:shadow-none hover:px-9 w-fit grid place-items-center">
-                    <span className="text-dark-grey font-cool-con text-2xl">
-                        Start Now
-                    </span>
+                    <Link href={'/signup?mode=doctor'}>
+                        <span className="text-dark-grey font-cool-con text-2xl">
+                            Start Now
+                        </span>
+                    </Link>
                 </button>
             </div>
             <Image 

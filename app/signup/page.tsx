@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
@@ -9,8 +9,17 @@ import CheckEmail from "./checkEmail";
 import { Loading } from "@nextui-org/react";
 
 
-export default function SignupPage({mode}: {mode: string}) {
-    const [accMode, setAccMode] = useState<string>(mode);
+function SignupPage() {
+    const [accMode, setAccMode] = useState('patient');
+
+
+    // get mode from query params
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setAccMode(urlParams.get('mode') as string);
+    }, []);
+
     const [form, setForm] = useState({
         mode: accMode,
         name: '',
@@ -145,3 +154,5 @@ export default function SignupPage({mode}: {mode: string}) {
         </>
     );
 }
+
+export default SignupPage;
