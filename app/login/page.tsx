@@ -31,6 +31,8 @@ export default function LoginPage() {
         } else {
             setError('');
             setLoading(false);
+
+            // redirect to dashboard
         }
     }
 
@@ -47,7 +49,7 @@ export default function LoginPage() {
                             type="text"
                             placeholder="Email Address"
                             className="w-full p-5 rounded-md bg-orange bg-opacity-30 text-lg font-satoshi-med text-dark-grey border-b border-shadow outline-none focus:border-orange focus:border placeholder:font-satoshi-med placeholder:text-dark-grey placeholder:opacity-30"
-                            
+                            onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit() }}
                             value={form.email}
                             onChange={(e) => setForm({...form, email: e.target.value})}
                         />
@@ -57,6 +59,7 @@ export default function LoginPage() {
                                 type={passwordHidden ? "password" : "text"}
                                 placeholder="Password"
                                 className="bg-transparent w-full h-full p-5 outline-none text-lg font-satoshi-med text-dark-grey placeholder:text-dark-grey placeholder:opacity-30 placeholder:font-satoshi-med"
+                                onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit() }}
                                 value={form.password}
                                 onChange={(e) => setForm({...form, password: e.target.value})}
                             />

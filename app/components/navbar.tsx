@@ -56,7 +56,7 @@ export default function Navbar({mode = 'home'}) {
             <Link href={'/dashboard'}>
                 <div className="cursor-pointer flex flex-row gap-2 items-center">
                     <BsPerson className="text-dark-grey" />
-                    <span className="text-base text-dark-grey font-satoshi-med">My Account</span>
+                    <span className="text-base text-dark-grey font-satoshi-med">My Dashboard</span>
                 </div>
             </Link>
         </>
