@@ -23,6 +23,7 @@ export default function Dashboard() {
     const [authTableRows, setAuthTableRows] = useState<AuthTableRow[]>([]);
     const [firstLoadDone, setFirstLoadDone] = useState<boolean>(false);
     const [currentAccess, setCurrentAccess] = useState<Access[]>([]);
+    const [revokeChildLoading, setRevokeChildLoading] = useState<boolean>(false);
     // const [patientDoc, setPatientDoc] = useState<Models.Document>();
     var patientDoc: Models.Document | undefined = undefined;
     
@@ -171,7 +172,7 @@ export default function Dashboard() {
                                         css={{backgroundColor: 'var(--orange-light)'}}
                                         className="hover:bg-orange hover:scale-105 transform transition-all"
                                     >
-                                        Doctors with Access <TbClick />
+                                        Doctors with Access {currentAccess.length > 0 ? `(${currentAccess.length})` : null}
                                     </Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
@@ -185,7 +186,7 @@ export default function Dashboard() {
                                                         color='error' 
                                                         size='sm'
                                                         onPress={async () => {
-                                                            const execution = await executeRevokeDoctorAccessFunction(
+                                                            await executeRevokeDoctorAccessFunction(
                                                                 access.patient_id as string,
                                                                 access.doctor_id as string,
                                                                 access.access_type as string,
@@ -194,7 +195,7 @@ export default function Dashboard() {
                                                             );
                                                         }}
                                                     >
-                                                        Revoke Access
+                                                        {revokeChildLoading ? <Loading color="white" /> : 'Revoke Access'}
                                                     </Button>
                                                 </div>
                                             </div>
