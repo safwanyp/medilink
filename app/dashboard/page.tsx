@@ -176,8 +176,6 @@ export default function Dashboard() {
                                     </div>
                                 </Popover.Content>
                             </Popover>
-
-                            
                         </div>
                         <span className="font-satoshi-med text-dark-grey text-xl flex">
                             To view a list of all the people who have accessed your records, please click&nbsp;

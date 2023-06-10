@@ -328,4 +328,25 @@ export async function executeDoctorAccessApproveFunction(patient_id: string, doc
     }
 }
 
+export async function executeDoctorAccessRejectFunction(patient_id: string, doctor_id: string, access_type: string, patient_name: string, doctor_name: string) {
+    try {
+        functions.createExecution(
+            process.env.NEXT_PUBLIC_DOCTOR_ACCESS_REJECT_FUNCTION_ID as string,
+            `{
+                "patient_id": "${patient_id}",
+                "patient_name": "${patient_name}",
+                "doctor_id": "${doctor_id}",
+                "doctor_name": "${doctor_name}",
+                "access_type": "${access_type}"
+            }`
+        );
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+        } else {
+            console.log(error);
+        }
+    }
+}
+
 // {"doctor_id":"N/A","doctor_name":"N/A","patient_id":"N/A","patient_name":"N/A","access_type":"N/A","access_date_time":"N/A"}
