@@ -18,6 +18,7 @@ export interface PatientDoc {
     patient_id: string;                 // patient's userID
     past_access: string[];              // past access requests
     access_request: string[];           // current access requests
+    current_access: string[];           // list of people who have access to patient's data
 }
 
 // export type Access = {
@@ -76,6 +77,7 @@ export class Patient implements PatientDoc {
     patient_id!: string;                 // patient's userID
     past_access!: string[];              // past access requests
     access_request!: string[];           // current access requests
+    current_access!: string[];           // list of people who have access to patient's data
 
     constructor(
         full_name: string,
@@ -96,7 +98,8 @@ export class Patient implements PatientDoc {
         employer: string,
         patient_id: string,
         past_access: string[],
-        access_request: string[]
+        access_request: string[],
+        current_access: string[]
     ) {
         this.full_name = full_name;
         this.registered_email = registered_email;
@@ -117,5 +120,6 @@ export class Patient implements PatientDoc {
         this.patient_id = patient_id;
         this.past_access = past_access;
         this.access_request = access_request;
+        this.current_access = current_access;
     }
 }

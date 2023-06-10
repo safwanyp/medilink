@@ -197,6 +197,7 @@ export async function createUserDocument(mode: string) {
                 userAcc.$id,
                 [JSON.stringify(accessJSON)],
                 [JSON.stringify(accessJSON)],
+                [JSON.stringify(accessJSON)]
             );
 
             console.log('data: ', JSON.stringify(data));
