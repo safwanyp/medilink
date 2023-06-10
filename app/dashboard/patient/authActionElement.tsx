@@ -13,8 +13,8 @@ export default function AuthActionElement({ request }: { request: Access }) {
         console.log('Payload: ', request);
 
         const execution = await executeDoctorAccessApproveFunction(
-            request.patient_id as string, 
-            request.doctor_id as string, 
+            request.patient_id as string,
+            request.doctor_id as string,
             request.access_type as string,
             request.patient_name as string,
             request.doctor_name as string,

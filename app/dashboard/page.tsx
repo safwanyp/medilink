@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from "react"
-import { client, getAccount, getPatientAccessLogs, getPatientAuthAccessLogs, getPatientDocument, getUserDocId, userDocId } from "../appwrite";
+import { client, executeDoctorAccessRejectFunction, executeRevokeDoctorAccessFunction, getAccount, getPatientAccessLogs, getPatientAuthAccessLogs, getPatientCurrentAccess, getPatientDocument, getUserDocId, userDocId } from "../appwrite";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { Models } from "appwrite";
@@ -22,8 +22,10 @@ export default function Dashboard() {
     const [accessTableRows, setAccessTableRows] = useState<AccessTableRow[]>([]);
     const [authTableRows, setAuthTableRows] = useState<AuthTableRow[]>([]);
     const [firstLoadDone, setFirstLoadDone] = useState<boolean>(false);
+    const [currentAccess, setCurrentAccess] = useState<Access[]>([]);
     // const [patientDoc, setPatientDoc] = useState<Models.Document>();
     var patientDoc: Models.Document | undefined = undefined;
+    
 
     type AccessTableRow = {
         key: string | null;
@@ -69,6 +71,7 @@ export default function Dashboard() {
             // get past four access logs
             const logs = await getPatientAccessLogs(doc, 4)
             const authLogs = await getPatientAuthAccessLogs(doc);
+            const current = await getPatientCurrentAccess(doc);
 
             // set table rows
             if (logs) {
@@ -94,6 +97,10 @@ export default function Dashboard() {
                         action: <AuthActionElement request={authLogs[i]} />
                     }]);
                 }
+            }
+
+            if (current) {
+                setCurrentAccess(current);
             }
         } else {
             setGotLogs(true);
@@ -168,12 +175,36 @@ export default function Dashboard() {
                                     </Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
-                                    <div className="w-auto h-auto flex flex-col gap-2 p-2">
-                                        <div className="w-full h-auto flex flex-row gap-5 justify-between items-center">
-                                            <span>Dr. Serena Riccomango</span>
-                                            <Button auto color='error' size='sm'>Revoke Access</Button>
+                                    {
+                                        currentAccess.length > 0 ? currentAccess.map((access) => (
+                                            <div key={`${access.doctor_name}`} className="w-auto h-auto flex flex-col gap-2 p-2">
+                                                <div className="w-full h-auto flex flex-row gap-5 justify-between items-center">
+                                                    <span>{access.doctor_name}</span>
+                                                    <Button 
+                                                        auto 
+                                                        color='error' 
+                                                        size='sm'
+                                                        onPress={async () => {
+                                                            const execution = await executeRevokeDoctorAccessFunction(
+                                                                access.patient_id as string,
+                                                                access.doctor_id as string,
+                                                                access.access_type as string,
+                                                                access.patient_name as string,
+                                                                access.doctor_name as string,
+                                                            );
+                                                        }}
+                                                    >
+                                                        Revoke Access
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )) 
+                                        : <div className="flex flex-row w-auto h-auto p-5">
+                                            <span className="font-satoshi-med text-dark-grey text-lg">
+                                                No doctors have access to your medical records.
+                                            </span>
                                         </div>
-                                    </div>
+                                    }
                                 </Popover.Content>
                             </Popover>
                         </div>
