@@ -33,11 +33,19 @@
 }
 
 
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --orange: rgba(252, 169, 104, 1);
+  --orange-light: rgba(253, 184, 124, 1);
+  --off-white: rgba(250, 248, 244, 1);
+  --cream: rgba(239, 224, 209, 1);
+  --dark-grey: rgba(19, 19, 19, 1);
+  --light-grey: rgba(83, 84, 97, 1);
+  --shadow: rgba(238, 151, 106, 1);
+  --dark-blue: rgba(157, 156, 181, 1);
 }
 
 /* @media (prefers-color-scheme: dark) {

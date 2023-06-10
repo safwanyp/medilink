@@ -31,8 +31,7 @@ export default function LoginPage() {
         } else {
             setError('');
             setLoading(false);
-
-            // redirect to dashboard
+            window.location.href = '/dashboard';
         }
     }
 

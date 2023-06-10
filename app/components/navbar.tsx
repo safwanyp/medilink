@@ -16,7 +16,7 @@ export default function Navbar({mode = 'home'}) {
         getAccount().then((res) => {
             setAcc(res);
         });
-    });
+    }, []);
 
     const homeDefaultNavbar = (
         <>
