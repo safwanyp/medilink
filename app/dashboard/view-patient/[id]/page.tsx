@@ -22,6 +22,7 @@ export default function ViewPatientDetailsPage({ params }: {params: {id: string}
         if (!patient_doc) {
             console.log('unauthorized');
             setAccessValid(false);
+            setLoading(false);
             return;
         } else {
             setPatientDoc(patient_doc);
