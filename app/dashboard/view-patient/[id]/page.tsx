@@ -6,11 +6,13 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from "react";
 import InvalidAccess from "./invalid";
 import ValidAccess from "./valid";
+import LoadingIndicator from "@/app/components/loading";
 
 export default function ViewPatientDetailsPage({ params }: {params: {id: string}}) {
     const searchParams = useSearchParams();
     const [accessValid, setAccessValid] = useState<boolean>(false);
     const [patientDoc, setPatientDoc] = useState<Models.Document>();
+    const [loading, setLoading] = useState<boolean>(true);
     
     async function checkAccessAndGetDocument(docId: string) {
         const doctor_id = searchParams.get('doctor');
@@ -38,6 +40,7 @@ export default function ViewPatientDetailsPage({ params }: {params: {id: string}
                 }
             }
         }
+        setLoading(false);
     }
 
     async function listenForChangeToAccess(docId: string) {
@@ -69,6 +72,8 @@ export default function ViewPatientDetailsPage({ params }: {params: {id: string}
         listenForChangeToAccess(params.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    if (loading) return <LoadingIndicator />;
 
     return (
         <div className="w-screen h-screen bg-cream bg-opacity-20">
