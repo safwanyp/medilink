@@ -8,15 +8,11 @@ import { createAccount, createSession, createUserDocument, executeTeamsFunction,
 import CheckEmail from "./checkEmail";
 import { Loading } from "@nextui-org/react";
 
-
-function SignupPage() {
+export default function SignupPage() {
     const [accMode, setAccMode] = useState('patient');
 
-
-    // get mode from query params
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         setAccMode(urlParams.get('mode') as string || 'patient');
     }, []);
 
@@ -46,11 +42,11 @@ function SignupPage() {
             setLoading(false);
             return;
         } else {
-            await createAccount(form.email, form.password.toString(), form.name);   // create user account
-            await createSession(form.email, form.password.toString());              // create user session
-            setShowVerification(true);                                              // show verification message
-            await sendVerificationEmail(`${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}/verification`);      // send verification email
-            await executeTeamsFunction(                                             // execute function to create correct team membership
+            await createAccount(form.email, form.password.toString(), form.name);
+            await createSession(form.email, form.password.toString());
+            setShowVerification(true);
+            await sendVerificationEmail(`${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}/verification`);
+            await executeTeamsFunction(
                 process.env.NEXT_PUBLIC_TEAM_FUNCTION_ID as string, 
                 form.mode, 
                 form.email
@@ -162,5 +158,3 @@ function SignupPage() {
         </>
     );
 }
-
-export default SignupPage;
