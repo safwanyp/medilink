@@ -1,3 +1,5 @@
+'use client';
+
 import { client, executeRevokeDoctorAccessFunction, getAccount, getPatientAccessLogs, getPatientAuthAccessLogs, getPatientCurrentAccess, getPatientDocument } from "@/app/appwrite";
 import { IsoDateToString } from "@/helpers/dateTimeFormat";
 import { Access } from "@/models/patient_doc";
