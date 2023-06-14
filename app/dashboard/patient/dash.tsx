@@ -178,6 +178,7 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
                                             <div key={`${access.doctor_name}`} className="w-auto h-auto flex flex-col gap-2 p-2">
                                                 <div className="w-full h-auto flex flex-row gap-5 justify-between items-center">
                                                     <span>{access.doctor_name}</span>
+                                                    <span className="text-sm font-satoshi-med-it">Type: {access.access_type}</span>
                                                     <Button 
                                                         auto 
                                                         color='error' 
@@ -192,7 +193,7 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
                                                             );
                                                         }}
                                                     >
-                                                        {revokeChildLoading ? <Loading color="white" /> : 'Revoke Access'}
+                                                        {revokeChildLoading ? <Loading color="white" type="points"/> : 'Revoke Access'}
                                                     </Button>
                                                 </div>
                                             </div>

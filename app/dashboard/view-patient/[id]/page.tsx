@@ -67,6 +67,7 @@ export default function ViewPatientDetailsPage({ params }: {params: {id: string}
     useEffect(() => {
         checkAccessAndGetDocument(params.id);
         listenForChangeToAccess(params.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
