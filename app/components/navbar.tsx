@@ -4,7 +4,7 @@ import Image from "next/image";
 import logo from "../../public/assets/Logo.svg";
 import { useEffect, useState } from "react";
 import { Models } from "appwrite";
-import { getAccount } from "../appwrite";
+import { deleteSession, getAccount } from "../appwrite";
 import { BsPerson } from "react-icons/bs";
 import { TbLogout } from "react-icons/tb";
 import Link from "next/link";
@@ -76,12 +76,14 @@ export default function Navbar({mode = 'home'}) {
             </div>
 
             {/* TODO: Implement Logout */}
-            <Link href={'/'}>
-                <div className="cursor-pointer flex flex-row gap-2 items-center">
+            
+                <div 
+                    className="cursor-pointer flex flex-row gap-2 items-center"
+                    onClick={() => deleteSession()}
+                >
                     <TbLogout className="text-dark-grey" />
                     <span className="text-base text-dark-grey font-satoshi-med">Logout</span>
                 </div>
-            </Link>
         </>
     );
 
@@ -114,12 +116,13 @@ export default function Navbar({mode = 'home'}) {
             </div>
 
             {/* TODO: Implement Logout */}
-            <Link href={'/'}>
-                <div className="cursor-pointer flex flex-row gap-2 items-center">
-                    <TbLogout className="text-dark-grey" />
-                    <span className="text-base text-dark-grey font-satoshi-med">Logout</span>
-                </div>
-            </Link>
+            <div 
+                className="cursor-pointer flex flex-row gap-2 items-center"
+                onClick={deleteSession}
+            >
+                <TbLogout className="text-dark-grey" />
+                <span className="text-base text-dark-grey font-satoshi-med">Logout</span>
+            </div>
         </>
     );
 

@@ -15,6 +15,21 @@ export const functions = new Functions(client);
 
 export var userDocId = '';
 
+export async function deleteSession() {
+    try {
+        const promise = await account.deleteSession('current');
+        window.location.href = '/';
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+            return;
+        } else {
+            console.log(error);
+            return;
+        }
+    }
+}
+
 export async function getUserDocId() {
     try {
         const acc = await getAccount();

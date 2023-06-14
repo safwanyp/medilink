@@ -14,6 +14,8 @@ import { Access } from "@/models/patient_doc";
 import { IsoDateToString } from "@/helpers/dateTimeFormat";
 import AuthActionElement from "./patient/authActionElement";
 import { flushSync } from "react-dom";
+import artwork from '@/public/assets/patient-dash-art.png';
+import Image from "next/image";
 
 
 export default function Dashboard() {
@@ -296,8 +298,8 @@ export default function Dashboard() {
                         </Table>
                     </div>
                 </div>
-                <div className="w-3/12 h-full bg-orange-light">
-                    
+                <div className="w-3/12 h-full flex flex-col justify-center items-center">
+                    <Image src={artwork} height={350} alt="Patient Dashboard Artwork" />
                 </div>
             </div>
             <Footer />
