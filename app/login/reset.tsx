@@ -27,8 +27,13 @@ export default function ResetPasswordModal({setShow = (val: boolean) => {}}) {
 
 
     return (
-        <div className="absolute w-screen h-screen bg-black bg-opacity-60 z-50 grid place-items-center">
-            <div className="w-1/3 h-auto p-5 bg-cream rounded-md flex flex-col gap-5 items-center">
+        <div 
+            className="absolute w-screen h-screen bg-black bg-opacity-60 z-50 grid place-items-center"
+            onClick={() => setShow(false)}
+        >
+            <div
+                onClick={(e) => e.stopPropagation()} 
+                className="w-1/3 h-auto p-5 bg-cream rounded-md flex flex-col gap-5 items-center">
                 <span className="font-cool text-dark-grey text-2xl">Reset Password</span>
                 {
                     submitted === true
@@ -40,9 +45,10 @@ export default function ResetPasswordModal({setShow = (val: boolean) => {}}) {
                         ? null
                         : <input
                             required
-                            type="text"
+                            type="email"
                             placeholder="Email Address"
                             onChange={(e) => setEmail(e.target.value)}
+                            onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit() }}
                             className="w-full p-5 rounded-md bg-orange bg-opacity-30 text-lg font-satoshi-med text-dark-grey border-b border-shadow outline-none focus:border-orange focus:border placeholder:font-satoshi-med placeholder:text-dark-grey placeholder:opacity-30"
                         />
                 }
@@ -61,6 +67,3 @@ export default function ResetPasswordModal({setShow = (val: boolean) => {}}) {
         </div>
     );
 }
-
-{/* <span className="font-satoshi-med text-dark-grey text-xl text-left">Please check your email for the link to reset your password.</span>
-                <span className="font-satoshi-med text-dark-grey text-xl text-left">Make sure to check your spam/junk folder as well!</span> */}
