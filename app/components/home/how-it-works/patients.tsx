@@ -9,7 +9,7 @@ export default function PatientsProcess() {
                 src={image} 
                 alt="Patients Dashboard on Mobile Preview" 
                 height={500}
-                className="border-2 border-shadow"
+                className="hidden md:block border-2 border-shadow"
             />
             <div className="flex flex-col w-full h-full gap-6 text-dark-grey font-satoshi-med">
                 <p>As a <span className="text-orange font-satoshi-bold">patient</span>, you will get access to a dashboard that comes with features like:</p>

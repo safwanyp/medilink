@@ -22,7 +22,7 @@ export default function DoctorsProcess() {
                 src={image} 
                 alt="Patients Dashboard on Mobile Preview" 
                 height={500}
-                className="border-2 border-shadow"
+                className="hidden md:block border-2 border-shadow"
             />
         </div>
     );

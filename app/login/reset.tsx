@@ -33,7 +33,7 @@ export default function ResetPasswordModal({setShow = (val: boolean) => {}}) {
         >
             <div
                 onClick={(e) => e.stopPropagation()} 
-                className="w-1/3 h-auto p-5 bg-cream rounded-md flex flex-col gap-5 items-center">
+                className="w-11/12 md:w-1/3 h-auto p-5 bg-cream rounded-md flex flex-col gap-5 items-center">
                 <span className="font-cool text-dark-grey text-2xl">Reset Password</span>
                 {
                     submitted === true

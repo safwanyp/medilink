@@ -62,7 +62,7 @@ export default function Dashboard() {
     if (loading) return <LoadingIndicator />
 
     return (
-        <div className="w-screen h-screen flex flex-col justify-between px-32 bg-cream bg-opacity-20 text-2xl font-['Satoshi_Medium'] overflow-none">
+        <div className="w-screen h-screen flex flex-col justify-between md:px-32 bg-cream bg-opacity-20 text-2xl font-['Satoshi_Medium'] overflow-none">
             { dashType === 'patient' && <PatientDash acc={acc} setAcc={setAcc} /> }
             { dashType === 'doctor' && <DoctorDash acc={acc} setAcc={setAcc} /> }
             <Footer />

@@ -18,7 +18,7 @@ export default function Intro() {
                 </p>
             </div>
             </div>
-        <Image src={landingArt} alt="Landing Art" height={320}/>
+        <Image src={landingArt} alt="Landing Art" height={320} className="hidden md:block"/>
       </div>
     )
 }

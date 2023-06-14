@@ -27,15 +27,15 @@ export default function Navbar({mode = 'home'}) {
                     width={140}
                 />  
             </Link>
-            <div className="flex flex-row gap-5 text-lg items-center">
+            <div className="flex flex-row gap-3 md:gap-5 text-lg items-center">
                 <Link href={'/login'}>
-                    <span className="cursor-pointer text-dark-grey font-satoshi-med">
+                    <span className="cursor-pointer text-dark-grey font-satoshi-med text-base md:text-lg">
                         Log In
                     </span>
                 </Link>
                 <Link href={'/signup'}>
                     <button className="rounded-full outline-none bg-orange px-7 py-1 shadow-[1px_4px_0px_0px_rgba(238,151,106,1)] transition-all duration-300 hover:shadow-none hover:px-9">
-                        <span className="text-dark-grey font-cool-con text-xl">
+                        <span className="text-dark-grey font-cool-con text-lg md:text-xl">
                             Get Started
                         </span>
                     </button>
@@ -102,7 +102,7 @@ export default function Navbar({mode = 'home'}) {
 
     const patientDashNavbar = (
         <>
-            <div className="flex gap-10 items-center">
+            <div className="flex gap-10 items-center px-2 md:px-0">
                 <Link href={'/'}>
                     <Image 
                         src={logo}
@@ -110,12 +110,12 @@ export default function Navbar({mode = 'home'}) {
                         width={140}
                     />  
                 </Link>
-                <span className="text-light-grey font-satoshi-bold text-lg">Patient Dashboard</span>
+                <span className="hidden md:block text-light-grey font-satoshi-bold text-lg">Patient Dashboard</span>
             </div>
 
             {/* TODO: Implement Logout */}
             <div 
-                className="cursor-pointer flex flex-row gap-2 items-center"
+                className="cursor-pointer flex flex-row gap-2 items-center mr-2 md:mr-0"
                 onClick={deleteSession}
             >
                 <TbLogout className="text-dark-grey" />
@@ -125,7 +125,7 @@ export default function Navbar({mode = 'home'}) {
     );
 
     return (
-        <div className="w-full py-5 flex flex-row justify-between items-center border-b-[1px] border-orange-light border-opacity-40">
+        <div className="w-full md:px-0 px-2 py-5 flex flex-row justify-between items-center border-b-[1px] border-orange-light border-opacity-40">
             {
                 mode === 'home' 
                     ? acc ? homeLoggedInNavbar : homeDefaultNavbar

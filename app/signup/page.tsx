@@ -59,10 +59,10 @@ export default function SignupPage() {
     return (
         <>
             {showVerification ? <CheckEmail setShow={setShowVerification} /> : null}
-            <div className="w-screen h-screen flex flex-col justify-between px-32 bg-cream bg-opacity-20 text-2xl font-['Satoshi_Medium'] overflow-auto">
+            <div className="w-screen h-screen flex flex-col justify-between px-3 md:px-32 bg-cream bg-opacity-20 text-2xl font-['Satoshi_Medium'] overflow-auto">
                 <Navbar mode="home"/>
                 <div className="w-full h-full flex justify-center items-center">
-                    <div className="w-2/5 h-full flex flex-col gap-5 justify-center items-center">
+                    <div className="px-11/12 md:w-2/5 h-full flex flex-col gap-5 justify-center items-center">
                         <h2 className="font-satoshi-bold text-dark-grey">Sign up for a free account</h2>
                         <div className="w-full flex justify-start gap-5">
                             <span className="text-lg font-satoshi-med text-dark-grey">I am a </span>

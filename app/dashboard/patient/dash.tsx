@@ -155,20 +155,21 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
         <>
             <Navbar mode="patientDash"/>
             <div className="w-full h-full flex flex-row gap-8">
-                <div className="w-9/12 h-full flex flex-col gap-5 justify-start py-3">
-                    <span className="font-satoshi-med text-dark-grey text-xl">
-                        Welcome back, <span className="font-satoshi-med text-orange text-xl">{acc?.name.split(' ')[0]}</span>
+                <div className="w-full md:w-9/12 h-full flex flex-col gap-5 justify-start py-3 px-3 md:px-0">
+                    <span className="font-satoshi-med text-dark-grey text-base md:text-xl">
+                        Welcome back, <span className="font-satoshi-med text-orange text-base md:text-xl">{acc?.name.split(' ')[0]}</span>
                     </span>
-                    <div className="w-full h-auto flex flex-col gap-1">
-                        <div className="w-full h-fit flex flex-row justify-between">
-                            <h2 className="font-cool text-dark-grey text-2xl">Medical Record Access History</h2>
-                            
-                            {/* TODO: Implement view and revoke access */}
+                    <div className="w-full h-auto flex flex-col gap-5 md:gap-1">
+                        <div className="w-full h-fit flex flex-col md:flex-row gap-2 md:justify-between">
+                            <h2 className="font-cool text-dark-grey text-lg md:text-2xl">Medical Record Access History</h2>
                             <Popover>
                                 <Popover.Trigger>
                                     <Button
                                         auto
-                                        css={{backgroundColor: 'var(--orange-light)'}}
+                                        css={{
+                                            backgroundColor: 'var(--orange-light)',
+                                            
+                                        }}
                                         className="hover:bg-orange hover:scale-105 transform transition-all"
                                     >
                                         Doctors with Access {currentAccess.length > 0 ? `(${currentAccess.length})` : null}
@@ -209,26 +210,25 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
                                 </Popover.Content>
                             </Popover>
                         </div>
-                        <span className="font-satoshi-med text-dark-grey text-xl flex">
-                            To view a list of all the people who have accessed your records, please click&nbsp;
-                            <Link href={'/access-history'}>
-                                <span className="flex font-satoshi-med text-orange text-xl cursor-pointer hover:underline">
-                                here <FiArrowUpRight />
-                                </span>
-                            </Link>
-                        </span>
+                        
                         {gotLogs ? <Table 
                             lined='true' 
                             aria-label='Medical Record Access History'
                             sticked
                             containerCss={{
-                                maxWidth: '70%',
+                                maxWidth: '100%',
+                                '@md': {
+                                    maxWidth: '70%',
+                                }
                             }}
                         >
                             <Table.Header columns={accessTableColumns}>
                                 {(column) => (
                                         <Table.Column key={column.key} css={{
-                                            fontSize: '1.15rem',
+                                            fontSize: '0.75rem',
+                                            '@md': {
+                                                fontSize: '1.15rem',
+                                            },
                                             fontFamily: 'Satoshi Medium',
                                             fontWeight: 'normal',
                                             color: 'var(--off-white)',
@@ -240,27 +240,32 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
                             </Table.Header>
                             <Table.Body items={accessTableRows}>
                                 {(items) => (
-                                    <Table.Row key={items.key} css={{fontSize: '1rem'}}>
+                                    <Table.Row key={items.key} css={{
+                                        fontSize: '0.75rem',
+                                            '@md': {
+                                                fontSize: '1rem',
+                                            },
+                                    }}>
                                         <Table.Cell>{items.date}</Table.Cell>
                                         <Table.Cell>{items.doctor}</Table.Cell>
                                     </Table.Row>
                                 )}
                             </Table.Body>
                         </Table> : <Loading color="warning" />}
-                        {gotLogs ? <div className="w-[70%] h-auto flex flex-row justify-end items-center gap-2 -my-0">
-                            <span className="text-xs">Table will only show the last 4 access logs.</span>
+                        {gotLogs ? <div className="w-full md:w-[70%] h-auto flex md:flex-row flex-row-reverse justify-start md:justify-end items-center gap-2 -my-0">
+                            <span className="text-xs -mt-4 md:-mt-0">Table will only show the last 4 access logs.</span>
                             <Tooltip content={
                                 <span className="flex flex-row justify-center text-center">
                                     If there are less than 4 records, it means your details <br />haven&apos;t been accessed more than 4 times.
                                 </span>
                             }>
-                                <BiInfoCircle className="text-sm self-center" />
+                                <BiInfoCircle className="text-sm self-center -mt-4 md:-mt-0" />
                             </Tooltip>
                         </div> : null}
                     </div>
                     <div className="w-full h-auto flex flex-col gap-1">
-                        <h2 className="font-cool text-dark-grey text-2xl">Authorization Portal</h2>
-                        <span className="font-satoshi-med text-dark-grey text-xl flex">
+                        <h2 className="font-cool text-dark-grey text-lg md:text-2xl">Authorization Portal</h2>
+                        <span className="font-satoshi-med text-dark-grey text-base md:text-xl flex">
                             Any access requests will show up here. You are free to approve or reject the access request as per your wishes.
                         </span>
                         <Table 
@@ -268,13 +273,21 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
                             aria-label='Authorization Portal'
                             sticked
                             containerCss={{
-                                maxWidth: '70%',
+                                maxWidth: '100%',
+                                '@md': {
+                                    maxWidth: '70%',
+                                }
                             }}
                         >
                             <Table.Header columns={authTableColumns}>
                                 {(column) => (
                                         <Table.Column key={column.key} css={{
-                                            fontSize: '1.15rem',
+                                            fontSize: '0.85rem',
+                                            textAlign: 'center',
+                                            '@md': {
+                                                fontSize: '1.15rem',
+                                                textAlign: 'left',
+                                            },
                                             fontFamily: 'Satoshi Medium',
                                             fontWeight: 'normal',
                                             color: 'var(--off-white)',
@@ -286,7 +299,14 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
                             </Table.Header>
                             <Table.Body items={authTableRows}>
                                 {(items) => (
-                                    <Table.Row key={items.key} css={{fontSize: '1rem'}}>
+                                    <Table.Row key={items.key} css={{
+                                        fontSize: '0.75rem',
+                                        textAlign: 'center',
+                                            '@md': {
+                                                fontSize: '1rem',
+                                                textAlign: 'left',
+                                            },
+                                    }}>
                                         <Table.Cell>{items.doctor}</Table.Cell>
                                         <Table.Cell>{items.access_type}</Table.Cell>
                                         <Table.Cell>{items.action}</Table.Cell>
@@ -296,7 +316,7 @@ export default function Dash({acc, setAcc}: {acc: any, setAcc: any}) {
                         </Table>
                     </div>
                 </div>
-                <div className="w-3/12 h-full flex flex-col justify-center items-center">
+                <div className="hidden w-0 md:w-3/12 h-full md:flex flex-col justify-center items-center">
                     <Image src={artwork} height={350} alt="Patient Dashboard Artwork" />
                 </div>
             </div>

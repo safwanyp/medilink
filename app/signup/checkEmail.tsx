@@ -4,7 +4,7 @@ export default function CheckEmail({setShow = (val: boolean) => {}}) {
 
     return (
         <div className="absolute w-screen h-screen bg-black bg-opacity-60 z-50 grid place-items-center">
-            <div className="w-1/3 h-auto p-5 bg-cream rounded-md flex flex-col gap-5 items-center">
+            <div className="w-11/12 md:w-1/3 h-auto p-5 bg-cream rounded-md flex flex-col gap-5 items-center">
                 <span className="font-cool text-dark-grey text-2xl">Verification Email Sent</span>
                 <span className="font-satoshi-med text-dark-grey text-xl text-left">Please check your email for the link to verify your account.</span>
                 <span className="font-satoshi-med text-dark-grey text-xl text-left">Make sure to check your spam/junk folder as well!</span>
