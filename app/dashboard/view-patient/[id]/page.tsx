@@ -1,6 +1,6 @@
 'use client';
 
-import { client, executeRevokeDoctorAccessFunction, getDocumentById } from "@/app/appwrite";
+import { client, getDocumentById } from "@/app/appwrite";
 import { Models } from "appwrite";
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from "react";
