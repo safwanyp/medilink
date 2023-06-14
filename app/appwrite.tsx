@@ -1,6 +1,6 @@
 import StringToJSON from "@/helpers/stringToJSON";
 import { Access, Patient, PatientDoc } from "@/models/patient_doc";
-import { Client, Account, Databases, ID, AppwriteException, Functions, Query, Models } from "appwrite";
+import { Client, Account, Databases, ID, AppwriteException, Functions, Query, Models, Teams } from "appwrite";
 import { useState } from "react";
 
 export const client = new Client();
@@ -12,6 +12,7 @@ client
 export const account = new Account(client);
 export const database = new Databases(client);
 export const functions = new Functions(client);
+export const teams = new Teams(client);
 
 export var userDocId = '';
 
@@ -243,6 +244,54 @@ export async function createUserDocument(mode: string) {
     }
 }
 
+export async function getPatientDocId(email: string) {
+    try {
+        console.log('email: ', email);
+        const promise = await database.listDocuments(
+            process.env.NEXT_PUBLIC_DATABASE_ID as string,
+            process.env.NEXT_PUBLIC_PATIENT_COLLECTION_ID as string,
+            [
+                Query.equal('registered_email', email.toString())
+            ]
+        );
+
+        console.log('promise: ', promise);
+
+        // const doc = promise.documents[0];
+        // const patient_id = doc.$id;
+
+        // return patient_id;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+            return;
+        } else {
+            console.log(error);
+            return;
+        }
+    }
+}
+
+export async function getDocumentById(id: string) {
+    try {
+        const promise = await database.getDocument(
+            process.env.NEXT_PUBLIC_DATABASE_ID as string,
+            process.env.NEXT_PUBLIC_PATIENT_COLLECTION_ID as string,
+            id
+        );
+
+        return promise;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+            return;
+        } else {
+            console.log(error);
+            return;
+        }
+    }
+}
+
 export async function getPatientDocument() {
     try {
         const acc = await getAccount();
@@ -389,7 +438,7 @@ export async function executeDoctorAccessRejectFunction(patient_id: string, doct
 
 export async function executeRevokeDoctorAccessFunction(patient_id: string, doctor_id: string, access_type: string, patient_name: string, doctor_name: string) {
     try {
-        functions.createExecution(
+        const execution = await functions.createExecution(
             process.env.NEXT_PUBLIC_REVOKE_DOCTOR_ACCESS_FUNCTION_ID as string,
             `{
                 "patient_id": "${patient_id}",
@@ -399,11 +448,40 @@ export async function executeRevokeDoctorAccessFunction(patient_id: string, doct
                 "access_type": "${access_type}"
             }`
         );
+        return execution.response;
     } catch (error) {
         if (error instanceof AppwriteException) {
             console.log(error.message);
         } else {
             console.log(error);
+        }
+    }
+}
+
+export async function executeRequestAccessToPatientDoc(request: Access, patient_email: string) {
+    try {
+        const execution = await functions.createExecution(
+            process.env.NEXT_PUBLIC_REQUEST_ACCESS_TO_PATIENT_DOC_FUNCTION_ID as string,
+            `{
+                "patient_email": "${patient_email}",
+                "doctor_id": "${request.doctor_id}",
+                "doctor_name": "${request.doctor_name}",
+                "patient_id": "${request.patient_id}",
+                "patient_name": "${request.patient_name}",
+                "access_type": "${request.access_type}",
+                "access_date_time": "${request.access_date_time}"
+            }`
+        );
+
+        console.log('execution: ', execution.response);
+        return execution;
+    } catch (error) {
+        if (error instanceof AppwriteException) {
+            console.log(error.message);
+            return;
+        } else {
+            console.log(error);
+            return;
         }
     }
 }

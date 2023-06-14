@@ -95,9 +95,7 @@ export default function Navbar({mode = 'home'}) {
                 alt="MediLink Logo"
                 width={140}
             />  
-
-            {/* TODO: Get patient name */}
-            <span className="text-light-grey font-satoshi-bold text-lg">Patient Details - Safwan Parkar</span>
+            <span className="text-light-grey font-satoshi-bold text-lg">Patient Details</span>
         </div>
         </>
     );
