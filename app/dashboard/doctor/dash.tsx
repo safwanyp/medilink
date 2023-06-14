@@ -124,7 +124,7 @@ export default function DoctorDash({acc, setAcc}: {acc: any, setAcc: any}) {
                     </div>
                 </div>
                 <div className="w-3/12 h-full flex flex-col gap-5 items-center justify-center py-3">
-                    <Image src={artwork} height={300} alt="doctor-dash-art" />
+                    <Image src={artwork} height={300} alt="doctor-dash-img" />
                 </div>
             </div>
         </>
