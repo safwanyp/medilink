@@ -267,15 +267,7 @@ export default function ValidAccess({patientDoc}: {patientDoc: Models.Document})
                             </div>
                         </div>
                     </div>
-                    <div className="w-1/4 h-full flex flex-col justify-start items-end">
-                        <button 
-                            disabled
-                            className="py-3 px-6 bg-orange-light rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            <span className="font-satoshi-med text-dark-grey">Request One-Time Access for Editing</span>
-                        </button>
-                        <span className="text-xs text-light-grey font-satoshi-med-it">Coming soon ❤️</span>
-                    </div>
+                    
                 </div>
 
                 {/* FOOTER */}
