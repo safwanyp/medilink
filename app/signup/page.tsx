@@ -4,14 +4,28 @@ import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { createAccount, createSession, createUserDocument, executeTeamsFunction, sendVerificationEmail } from "../appwrite";
+import { createAccount, createSession, createUserDocument, executeTeamsFunction, getAccount, sendVerificationEmail } from "../appwrite";
 import CheckEmail from "./checkEmail";
 import { Loading } from "@nextui-org/react";
 
 export default function SignupPage() {
     const [accMode, setAccMode] = useState('patient');
+    
+    async function checkLogin() {
+        const acc = await getAccount();
+        if (acc) {
+            window.location.href = '/dashboard';
+        } else {
+            return;
+        }
+    }
 
     useEffect(() => {
+        
+    }, []);
+
+    useEffect(() => {
+        checkLogin();
         const urlParams = new URLSearchParams(window.location.search);
         setAccMode(urlParams.get('mode') as string || 'patient');
     }, []);

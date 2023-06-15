@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { createSession } from "../appwrite";
+import { createSession, getAccount } from "../appwrite";
 import { Loading } from "@nextui-org/react";
 import { AppwriteException } from "appwrite";
 import RecoverPassword from "../recover/page";
@@ -34,6 +34,19 @@ export default function LoginPage() {
             window.location.href = '/dashboard';
         }
     }
+
+    async function checkLogin() {
+        const acc = await getAccount();
+        if (acc) {
+            window.location.href = '/dashboard';
+        } else {
+            return;
+        }
+    }
+
+    useEffect(() => {
+        checkLogin();
+    }, []);
 
     return (
         <>
