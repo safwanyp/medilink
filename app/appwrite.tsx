@@ -201,7 +201,7 @@ export async function createUserDocument(mode: string) {
                 ['Peanuts', 'Shellfish', 'Dust'],
                 ['Radiation Therapy', 'Chemotherapy', 'Surgery'],
                 ['Hypertenstion', 'Diabetes'],
-                ['Asthma, Heart Disease'],
+                ['Asthma', 'Heart Disease'],
                 ['Lanzol', 'Cefixime', 'Cefpodoxime'],
                 'Worldwide Insurance',
                 '5642378',
