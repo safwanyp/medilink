@@ -75,8 +75,11 @@ export default function DoctorDash({acc, setAcc}: {acc: any, setAcc: any}) {
 
     return (
         <>
-            <Navbar mode="doctorDash"/>
-            <div className="w-full h-full flex flex-row gap-8">
+            <Navbar mode="doctorDash" />
+            <div className="w-full h-full flex flex-col justify-center items-center gap-3 p-5 md:hidden">
+                <span className="text-center">The doctor dashboard is not available on mobile devices.</span>
+            </div>
+            <div className="hidden md:flex w-full h-full flex-row gap-8">
                 <div className="w-9/12 h-full flex flex-col gap-5 justify-start py-3">
                     <span className="font-satoshi-med text-dark-grey text-xl">
                         Welcome back, <span className="font-satoshi-med text-orange text-xl">{`${acc?.name.split(' ')[0]} ${acc?.name.split(' ')[1]}`}</span>
