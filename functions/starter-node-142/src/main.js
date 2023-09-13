@@ -11,6 +11,7 @@ export default async ({ req, res, log, error }) => {
   //    .setKey(process.env.APPWRITE_API_KEY);
 
   // You can log messages to the console
+  // trigger deployment
   log('Hello, Logs!');
 
   // If something goes wrong, log an error
